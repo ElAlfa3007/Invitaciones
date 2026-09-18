@@ -1,0 +1,15 @@
+# Ignorar secretos
+.env
+
+# Ignorar archivos de datos de invitados
+*.csv
+*.xlsx
+*.xls
+*.docx
+*.txt
+*.png
+*.jpg
+*.jpeg
+
+# Ignorar carpetas temporales de datos reales si decides crearlas
+datos_reales/

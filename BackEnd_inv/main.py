@@ -4,10 +4,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import select, insert, update
 from sqlalchemy.exc import IntegrityError  # Añadido para capturar duplicados
 
-from .database import engine
-from .dynamic_tables import crear_tabla_evento, obtener_tabla_evento, listar_eventos
-from .schemas import CrearEvento, CargaInvitados, ActualizarEstado, BuscarInvitado
-from .auth import verificar_admin
+from database import engine
+from dynamic_tables import crear_tabla_evento, obtener_tabla_evento, listar_eventos
+from schemas import CrearEvento, CargaInvitados, ActualizarEstado, BuscarInvitado
+from auth import verificar_admin
 
 app = FastAPI(title="Invitaciones API")
 

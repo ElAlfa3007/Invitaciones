@@ -2,7 +2,7 @@ import os
 from sqlalchemy import create_engine, MetaData
 from sqlalchemy.orm import sessionmaker
 
-DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./invitaciones.db")
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 # Intercepta el formato de Render para evitar que SQLAlchemy falle
 if DATABASE_URL.startswith("postgres://"):
