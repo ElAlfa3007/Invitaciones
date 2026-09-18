@@ -1,73 +1,136 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>¡Estás invitado! 🎉</title>
-<link rel="stylesheet" href="../../assets/css/style.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nuestra Boda | Pedro & Ana</title>
+  <!-- Fuentes: Playfair Display (Elegante) y Great Vibes (Manuscrita) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="contenedor">
 
     <!-- ================= HERO ================= -->
-    <!-- EDITA: antetítulo, nombre del festejado/evento y fecha en texto -->
-    <section class="hero">
-      <div class="antetitulo">Te invitamos a celebrar</div>
-      <h1>Mi Fiesta</h1>
-      <div class="fecha">24 · OCTUBRE · 2026</div>
+    <header class="hero">
+      <div class="hero-imagen">
+        <!-- Coloca aquí la foto de los novios en tu carpeta -->
+        <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=800&auto=format&fit=crop" alt="Pedro y Ana">
+        <div class="degradado"></div>
+      </div>
+      
+      <div class="hero-contenido">
+        <div class="logo-iniciales">
+          <span class="inicial-p">P</span><span class="inicial-a">A</span>
+        </div>
+        <h1>Pedro & Ana</h1>
+        <p class="fecha-principal">11 de Septiembre 2026</p>
+      </div>
+    </header>
+
+    <!-- ================= FRASE ================= -->
+    <section class="seccion frase-seccion">
+      <p class="frase">"Después de tantos sueños compartidos, hoy elegimos seguir caminando juntos para siempre."</p>
+      <div class="adorno-floral">❀</div>
+      <h2 class="texto-cursiva">¡Nos Casamos!</h2>
     </section>
 
     <!-- ================= CUENTA REGRESIVA ================= -->
-    <div class="cuenta-regresiva" id="cuenta-regresiva">
-      <!-- se llena automáticamente con JS -->
-    </div>
-
-    <!-- ================= DETALLES ================= -->
-    <!-- EDITA: hora, lugar, dirección y lo que quieras agregar -->
-    <section class="seccion">
-      <h2>Detalles</h2>
-      <div class="subtitulo">No faltes</div>
-      <div class="detalle">
-        <p><strong>Hora:</strong> 7:00 PM</p>
-        <p><strong>Lugar:</strong> [Escribe aquí el lugar]</p>
-        <p><strong>Dirección:</strong> [Escribe aquí la dirección]</p>
+    <section class="seccion seccion-reloj">
+      <div class="caja-reloj">
+        <p class="etiqueta-top">FALTAN</p>
+        <div class="cuenta-regresiva" id="cuenta-regresiva">
+          <!-- JS lo llena automáticamente -->
+        </div>
       </div>
     </section>
 
-    <!-- ================= RSVP ================= -->
-    <section class="rsvp">
-      <h2>Confirma tu asistencia</h2>
+    <!-- ================= ITINERARIO ================= -->
+    <section class="seccion itinerario">
+      <h2 class="texto-cursiva titulo-seccion">El Gran Día</h2>
+      <p class="subtitulo-fecha">VIERNES 11 DE SEPTIEMBRE</p>
 
-      <!-- Paso 1: buscar invitación -->
+      <div class="linea-tiempo">
+        <!-- Evento 1 -->
+        <div class="evento izquierda">
+          <div class="evento-contenido">
+            <h3>Ceremonia Religiosa</h3>
+            <p class="hora">14:00 hrs</p>
+            <p class="lugar">Iglesia San Francisco</p>
+          </div>
+          <div class="punto">⛪</div>
+        </div>
+        
+        <!-- Evento 2 -->
+        <div class="evento derecha">
+          <div class="punto">🥂</div>
+          <div class="evento-contenido">
+            <h3>Recepción</h3>
+            <p class="hora">15:00 hrs</p>
+            <p class="lugar">Quinta "Los Andes"</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CÓDIGO DE VESTIMENTA ================= -->
+    <section class="seccion vestimenta">
+      <p class="etiqueta-top">CÓDIGO DE VESTIMENTA</p>
+      <h2 class="texto-cursiva titulo-grande">Formal Elegante</h2>
+      <p class="texto-descriptivo">Para mantener la armonía de nuestra boda, hemos preparado una guía visual.</p>
+      
+      <div class="paleta-colores">
+        <div class="color" style="background-color: #2b3a2a;"></div>
+        <div class="color" style="background-color: #632929;"></div>
+        <div class="color" style="background-color: #d1bfae;"></div>
+        <div class="color" style="background-color: #000000;"></div>
+      </div>
+      <p class="nota-color">Por favor evitar colores blancos o perlas.</p>
+    </section>
+
+    <!-- ================= RSVP (CONECTADO AL BACKEND) ================= -->
+    <section class="seccion confirmacion">
+      <h2 class="texto-cursiva titulo-seccion">Confirmación</h2>
+      <div class="icono-sobre">✉</div>
+      
+      <!-- Paso 1: Buscar invitado -->
       <div id="panel-busqueda">
-        <form id="form-busqueda">
+        <form id="form-busqueda" class="formulario-elegante">
           <div class="campo">
-            <label for="input-nombre">Nombre</label>
-            <input type="text" id="input-nombre" required />
+            <input type="text" id="input-nombre" placeholder="Nombre (ej. Juan)" required />
           </div>
           <div class="campo">
-            <label for="input-apellido">Apellido</label>
-            <input type="text" id="input-apellido" required />
+            <input type="text" id="input-apellido" placeholder="Apellido (ej. Pérez)" required />
           </div>
-          <button type="submit" class="boton boton-principal">Buscar mi invitación</button>
+          <button type="submit" class="boton-elegante">Buscar Invitación</button>
         </form>
         <div id="mensaje-busqueda" class="mensaje oculto"></div>
       </div>
 
-      <!-- Paso 2: confirmar estado (oculto hasta encontrar al invitado) -->
-      <div id="panel-confirmacion" class="oculto">
+      <!-- Paso 2: Confirmar (Se oculta hasta encontrar al invitado) -->
+      <div id="panel-confirmacion" class="oculto panel-asistencia">
+        <p>Hola,</p>
         <p class="resultado-nombre" id="nombre-resultado"></p>
-        <p>Selecciona tu respuesta:</p>
+        <p class="texto-descriptivo">Por favor confirma tu asistencia antes del 31 de Agosto de 2026.</p>
+        
         <div class="grupo-botones">
-          <button class="boton boton-estado" data-estado="asiste">Sí, asistiré</button>
-          <button class="boton boton-estado" data-estado="no_asiste">No podré ir</button>
-          <button class="boton boton-estado" data-estado="pendiente">Aún no sé</button>
+          <button class="boton-estado" data-estado="asiste">✔ Sí, asistiré</button>
+          <button class="boton-estado" data-estado="no_asiste">✖ No podré ir</button>
         </div>
         <div id="mensaje-confirmacion" class="mensaje oculto"></div>
       </div>
     </section>
 
-    <footer>Hecho con cariño para este día especial 💚</footer>
+    <!-- ================= FOOTER ================= -->
+    <footer class="footer-boda">
+      <p>Esperamos contar con su valiosa presencia</p>
+      <h2 class="texto-cursiva">Gracias</h2>
+      <div class="logo-iniciales-peq">
+        <span class="inicial-p">P</span><span class="inicial-a">A</span>
+      </div>
+    </footer>
   </div>
 
   <script src="config.js"></script>

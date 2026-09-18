@@ -1,235 +1,315 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Dancing+Script:wght@600;700&display=swap');
-
 :root {
-  --verde-oliva: #6b7248;
-  --verde-oscuro: #3f4429;
-  --burdeos: #6e2b2b;
-  --crema: #f7f2e9;
-  --crema-oscuro: #eee5d3;
-  --texto: #3a352b;
-  --sombra: 0 10px 30px rgba(0, 0, 0, 0.08);
+  /* Paleta extraída de la imagen */
+  --crema-fondo: #fcfaf5;
+  --crema-caja: #f4eee1;
+  --verde-oscuro: #2e3b28;
+  --verde-claro: #4c6344;
+  --burdeos: #602525;
+  --texto-principal: #333333;
+  --texto-secundario: #666666;
+  --oro: #bfa15f;
 }
 
-* { box-sizing: border-box; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  margin: 0;
-  font-family: 'Playfair Display', serif;
-  background: var(--crema);
-  color: var(--texto);
-  line-height: 1.5;
+  font-family: 'Montserrat', sans-serif; /* Fuente moderna para textos */
+  background-color: var(--crema-fondo);
+  color: var(--texto-principal);
+  line-height: 1.6;
 }
 
 .contenedor {
-  max-width: 480px;
+  max-width: 500px;
   margin: 0 auto;
-  min-height: 100vh;
-  background: var(--crema);
-  box-shadow: var(--sombra);
+  background-color: var(--crema-fondo);
+  box-shadow: 0 0 20px rgba(0,0,0,0.05);
   overflow: hidden;
+}
+
+/* Tipografías Especiales */
+.texto-cursiva {
+  font-family: 'Great Vibes', cursive;
+  font-weight: 400;
+  color: var(--texto-principal);
+}
+
+h3 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: var(--texto-principal);
 }
 
 /* ---------- Hero ---------- */
 .hero {
-  background: linear-gradient(180deg, var(--verde-oscuro) 0%, var(--verde-oliva) 100%);
-  color: var(--crema);
+  position: relative;
   text-align: center;
-  padding: 4rem 1.5rem 3rem;
+  padding-bottom: 2rem;
 }
 
-.hero .antetitulo {
-  letter-spacing: 0.3em;
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  opacity: 0.8;
+.hero-imagen {
+  position: relative;
+  width: 100%;
+  height: 65vh;
 }
 
-.hero h1 {
-  font-family: 'Dancing Script', cursive;
-  font-size: 3rem;
-  margin: 0.5rem 0;
-  font-weight: 700;
+.hero-imagen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
 }
 
-.hero .fecha {
+.hero-imagen .degradado {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 50%;
+  background: linear-gradient(to bottom, transparent, var(--crema-fondo) 90%);
+}
+
+.hero-contenido {
+  position: relative;
+  margin-top: -80px; /* Sube el texto sobre el degradado */
+  z-index: 2;
+}
+
+.logo-iniciales {
+  font-family: 'Playfair Display', serif;
+  font-size: 5rem;
+  line-height: 0.8;
+  letter-spacing: -5px;
+  margin-bottom: 10px;
+}
+
+.inicial-p { color: var(--verde-oscuro); position: relative; z-index: 2; }
+.inicial-a { color: var(--burdeos); margin-left: -15px; position: relative; z-index: 1; }
+
+.hero-contenido h1 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 3.5rem;
+  font-weight: 400;
+  color: var(--texto-principal);
+  margin-bottom: 10px;
+}
+
+.fecha-principal {
+  font-family: 'Playfair Display', serif;
   font-size: 1rem;
-  letter-spacing: 0.1em;
-  margin-top: 1rem;
-}
-
-/* ---------- Cuenta regresiva ---------- */
-.cuenta-regresiva {
-  display: flex;
-  justify-content: center;
-  gap: 0.75rem;
-  padding: 2rem 1rem;
-  background: var(--crema-oscuro);
-}
-
-.cuenta-regresiva .bloque {
-  background: white;
-  border-radius: 10px;
-  padding: 0.75rem 0.5rem;
-  min-width: 60px;
-  text-align: center;
-  box-shadow: var(--sombra);
-}
-
-.cuenta-regresiva .numero {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--burdeos);
-  display: block;
-}
-
-.cuenta-regresiva .etiqueta {
-  font-size: 0.65rem;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--texto);
 }
 
-/* ---------- Secciones ---------- */
+/* ---------- Secciones Generales ---------- */
 .seccion {
-  padding: 2.5rem 1.5rem;
+  padding: 3rem 2rem;
   text-align: center;
 }
 
-.seccion h2 {
-  font-family: 'Dancing Script', cursive;
-  font-size: 2rem;
-  color: var(--verde-oliva);
+.titulo-seccion {
+  font-size: 2.8rem;
   margin-bottom: 0.5rem;
 }
 
-.seccion .subtitulo {
+.etiqueta-top {
   font-size: 0.7rem;
-  letter-spacing: 0.15em;
+  letter-spacing: 3px;
   text-transform: uppercase;
-  color: var(--burdeos);
-  margin-bottom: 1.5rem;
-}
-
-.seccion p {
-  font-size: 0.95rem;
-}
-
-.detalle {
-  background: white;
-  border-radius: 14px;
-  padding: 1.25rem;
-  margin: 1rem 0;
-  box-shadow: var(--sombra);
-}
-
-/* ---------- RSVP ---------- */
-.rsvp {
-  background: var(--verde-oscuro);
-  color: var(--crema);
-  padding: 3rem 1.5rem;
-  text-align: center;
-}
-
-.rsvp h2 {
-  font-family: 'Dancing Script', cursive;
-  font-size: 2.2rem;
-  margin-bottom: 1.5rem;
-}
-
-.campo {
+  color: var(--texto-secundario);
   margin-bottom: 1rem;
-  text-align: left;
 }
 
-.campo label {
-  display: block;
-  font-size: 0.75rem;
-  letter-spacing: 0.05em;
+.texto-descriptivo {
+  font-size: 0.9rem;
+  color: var(--texto-secundario);
+  margin-bottom: 1.5rem;
+}
+
+/* ---------- Frase ---------- */
+.frase-seccion { padding: 2rem; }
+.frase {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 1.1rem;
+  color: var(--texto-principal);
+}
+.adorno-floral {
+  font-size: 2rem;
+  color: var(--burdeos);
+  opacity: 0.5;
+  margin: 1rem 0;
+}
+.frase-seccion .texto-cursiva { font-size: 2.5rem; color: var(--verde-claro); }
+
+/* ---------- Cuenta Regresiva ---------- */
+.caja-reloj {
+  background-color: var(--crema-caja);
+  border-radius: 20px;
+  padding: 2rem 1rem;
+  margin: 0 1rem;
+}
+
+.cuenta-regresiva {
+  display: flex;
+  justify-content: space-around;
+}
+
+.cuenta-regresiva .bloque {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cuenta-regresiva .numero {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  color: var(--verde-claro);
+  line-height: 1;
+}
+
+.cuenta-regresiva .etiqueta {
+  font-size: 0.6rem;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  margin-bottom: 0.35rem;
-  opacity: 0.85;
+  margin-top: 5px;
 }
 
+/* ---------- Itinerario (Línea de tiempo) ---------- */
+.subtitulo-fecha {
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  color: var(--texto-secundario);
+  margin-bottom: 2.5rem;
+}
+
+.linea-tiempo {
+  position: relative;
+  max-width: 100%;
+  margin: 0 auto;
+}
+.linea-tiempo::after {
+  content: '';
+  position: absolute;
+  width: 1px;
+  background-color: var(--burdeos);
+  top: 0; bottom: 0; left: 50%;
+  margin-left: -0.5px;
+}
+
+.evento {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  position: relative;
+  width: 100%;
+}
+
+.evento-contenido { width: 42%; text-align: right; }
+.evento.derecha .evento-contenido { text-align: left; }
+.evento .punto {
+  width: 30px; height: 30px;
+  background: var(--crema-fondo);
+  border: 1px solid var(--burdeos);
+  border-radius: 50%;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+}
+
+.evento.izquierda .punto { margin-left: 8%; margin-right: -15px; }
+.evento.derecha .punto { margin-right: 8%; margin-left: -15px; }
+
+.hora { font-family: 'Playfair Display', serif; color: var(--burdeos); font-weight: 600; }
+.lugar { font-size: 0.8rem; color: var(--texto-secundario); }
+
+/* ---------- Código de Vestimenta ---------- */
+.titulo-grande { font-size: 3rem; margin-bottom: 1rem; }
+.paleta-colores {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 2rem 0;
+}
+.color {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+.nota-color { font-size: 0.75rem; font-style: italic; color: var(--texto-secundario); }
+
+/* ---------- RSVP Formulario Elegante ---------- */
+.icono-sobre { font-size: 2rem; color: var(--verde-claro); margin-bottom: 1rem; }
+.formulario-elegante { max-width: 300px; margin: 0 auto; }
 .campo input {
   width: 100%;
-  padding: 0.75rem 1rem;
-  border-radius: 8px;
+  padding: 10px 0;
+  margin-bottom: 20px;
+  background: transparent;
   border: none;
-  font-family: inherit;
+  border-bottom: 1px solid var(--texto-secundario);
+  font-family: 'Montserrat', sans-serif;
   font-size: 1rem;
+  text-align: center;
+  outline: none;
 }
+.campo input:focus { border-bottom-color: var(--verde-claro); }
 
-.boton {
-  width: 100%;
-  padding: 0.85rem;
-  border-radius: 8px;
-  border: none;
-  font-family: 'Playfair Display', serif;
-  font-weight: 600;
-  font-size: 0.95rem;
-  cursor: pointer;
-  margin-top: 0.5rem;
-  transition: transform 0.15s ease, opacity 0.15s ease;
-}
-
-.boton:hover { transform: translateY(-1px); }
-.boton:active { transform: translateY(0); }
-
-.boton-principal {
-  background: var(--burdeos);
-  color: var(--crema);
-}
-
-.boton-estado {
-  background: var(--crema);
+.boton-elegante {
+  background-color: transparent;
   color: var(--verde-oscuro);
+  border: 1px solid var(--verde-oscuro);
+  padding: 12px 30px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 30px;
+  width: 100%;
 }
+.boton-elegante:hover { background-color: var(--verde-oscuro); color: white; }
 
-.boton-estado.activo {
-  background: var(--burdeos);
-  color: var(--crema);
+.panel-asistencia {
+  background-color: var(--crema-caja);
+  padding: 2rem;
+  border-radius: 15px;
 }
-
-.mensaje {
-  margin-top: 1rem;
-  font-size: 0.9rem;
-  padding: 0.75rem;
-  border-radius: 8px;
-}
-
-.mensaje.error {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 100, 100, 0.5);
-}
-
-.mensaje.exito {
-  background: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(180, 220, 150, 0.5);
-}
-
-.oculto { display: none !important; }
-
-.resultado-nombre {
-  font-family: 'Dancing Script', cursive;
-  font-size: 1.6rem;
-  margin-bottom: 0.25rem;
-}
+.resultado-nombre { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--burdeos); margin-bottom: 1rem; font-weight: 600; }
 
 .grupo-botones {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.5rem;
-  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 1.5rem;
 }
-
-.grupo-botones .boton-estado:first-child {
-  grid-column: 1 / -1;
+.boton-estado {
+  background: white;
+  border: 1px solid #ddd;
+  padding: 12px;
+  border-radius: 8px;
+  font-family: 'Montserrat', sans-serif;
+  cursor: pointer;
 }
+.boton-estado.activo { background-color: var(--verde-claro); color: white; border-color: var(--verde-claro); }
 
-footer {
+.mensaje { margin-top: 15px; padding: 10px; font-size: 0.85rem; border-radius: 5px; }
+.mensaje.error { color: #842029; background-color: #f8d7da; border: 1px solid #f5c2c7; }
+.mensaje.exito { color: #0f5132; background-color: #d1e7dd; border: 1px solid #badbcc; }
+.oculto { display: none !important; }
+
+/* ---------- Footer ---------- */
+.footer-boda {
+  background-color: var(--verde-oscuro);
+  color: var(--crema-fondo);
   text-align: center;
-  padding: 1.5rem;
-  font-size: 0.75rem;
-  color: var(--texto);
-  opacity: 0.6;
+  padding: 4rem 2rem;
 }
+.footer-boda p { font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 1rem; }
+.footer-boda h2 { font-size: 3.5rem; margin-bottom: 1rem; }
+.logo-iniciales-peq { font-family: 'Playfair Display', serif; font-size: 2.5rem; line-height: 0.8; }
+.logo-iniciales-peq .inicial-p { color: white; }
+.logo-iniciales-peq .inicial-a { color: #ffbba6; margin-left: -8px; }
