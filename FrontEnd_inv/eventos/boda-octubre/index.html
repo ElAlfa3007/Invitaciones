@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>¡Estás invitado! 🎉</title>
+<link rel="stylesheet" href="../../assets/css/style.css" />
+</head>
+<body>
+  <div class="contenedor">
+
+    <!-- ================= HERO ================= -->
+    <!-- EDITA: antetítulo, nombre del festejado/evento y fecha en texto -->
+    <section class="hero">
+      <div class="antetitulo">Te invitamos a celebrar</div>
+      <h1>Mi Fiesta</h1>
+      <div class="fecha">24 · OCTUBRE · 2026</div>
+    </section>
+
+    <!-- ================= CUENTA REGRESIVA ================= -->
+    <div class="cuenta-regresiva" id="cuenta-regresiva">
+      <!-- se llena automáticamente con JS -->
+    </div>
+
+    <!-- ================= DETALLES ================= -->
+    <!-- EDITA: hora, lugar, dirección y lo que quieras agregar -->
+    <section class="seccion">
+      <h2>Detalles</h2>
+      <div class="subtitulo">No faltes</div>
+      <div class="detalle">
+        <p><strong>Hora:</strong> 7:00 PM</p>
+        <p><strong>Lugar:</strong> [Escribe aquí el lugar]</p>
+        <p><strong>Dirección:</strong> [Escribe aquí la dirección]</p>
+      </div>
+    </section>
+
+    <!-- ================= RSVP ================= -->
+    <section class="rsvp">
+      <h2>Confirma tu asistencia</h2>
+
+      <!-- Paso 1: buscar invitación -->
+      <div id="panel-busqueda">
+        <form id="form-busqueda">
+          <div class="campo">
+            <label for="input-nombre">Nombre</label>
+            <input type="text" id="input-nombre" required />
+          </div>
+          <div class="campo">
+            <label for="input-apellido">Apellido</label>
+            <input type="text" id="input-apellido" required />
+          </div>
+          <button type="submit" class="boton boton-principal">Buscar mi invitación</button>
+        </form>
+        <div id="mensaje-busqueda" class="mensaje oculto"></div>
+      </div>
+
+      <!-- Paso 2: confirmar estado (oculto hasta encontrar al invitado) -->
+      <div id="panel-confirmacion" class="oculto">
+        <p class="resultado-nombre" id="nombre-resultado"></p>
+        <p>Selecciona tu respuesta:</p>
+        <div class="grupo-botones">
+          <button class="boton boton-estado" data-estado="asiste">Sí, asistiré</button>
+          <button class="boton boton-estado" data-estado="no_asiste">No podré ir</button>
+          <button class="boton boton-estado" data-estado="pendiente">Aún no sé</button>
+        </div>
+        <div id="mensaje-confirmacion" class="mensaje oculto"></div>
+      </div>
+    </section>
+
+    <footer>Hecho con cariño para este día especial 💚</footer>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="../../assets/js/rsvp.js"></script>
+</body>
+</html>
