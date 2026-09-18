@@ -1,0 +1,5 @@
+requests
+openpyxl
+python-docx
+python-dotenv
+anthropic
