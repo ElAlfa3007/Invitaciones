@@ -1,6 +1,6 @@
 from typing import Optional
 from sqlalchemy import Table, Column, Integer, String, Text, DateTime, UniqueConstraint, func, inspect
-from .database import metadata, engine
+from database import metadata, engine
 
 TIPOS_EXTRA = {
     "texto": String(255),
