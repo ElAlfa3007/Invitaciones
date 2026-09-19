@@ -5,6 +5,7 @@
   --verde-oscuro: #2e3b28;
   --verde-claro: #4c6344;
   --burdeos: #602525;
+  --texto-gracias: #f2f5b8;
   --texto-principal: #333333;
   --texto-secundario: #666666;
   --oro: #bfa15f;
@@ -32,6 +33,12 @@ body {
   font-family: 'Great Vibes', cursive;
   font-weight: 400;
   color: var(--texto-principal);
+}
+
+.texto-gracias {
+  font-family: 'Great Vibes', cursive;
+  font-weight: 400;
+  color: var(--texto-gracias);
 }
 
 h3 {
