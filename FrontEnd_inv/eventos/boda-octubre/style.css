@@ -41,6 +41,13 @@ body {
   color: var(--texto-gracias);
 }
 
+.texto-vestimenta {
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: var(--texto-principal);
+}
+
 h3 {
   font-family: 'Playfair Display', serif;
   font-weight: 600;
