@@ -297,24 +297,32 @@ h3 {
 /* ---------- Ubicación ---------- */
 .mapa-contenedor {
   margin: 2rem auto;
-  max-width: 300px;
-  border-radius: 15px;
+  width: 100%; 
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08); 
+  border: 1px solid var(--crema-caja);
+}
+
+.mapa-contenedor iframe {
+  display: block;
+  width: 100%;
+  height: 350px; 
+  border: none;
 }
 
 .icono-ubicacion {
   font-size: 2rem;
   margin-bottom: 1rem;
+  opacity: 0.85; 
 }
 
 .enlace-mapa {
   display: inline-block;
   text-decoration: none;
-  margin-top: 1rem;
-  max-width: 300px;
+  margin-top: 1.5rem;
+  width: 100%;
 }
-
 /* ---------- Código de Vestimenta ---------- */
 .titulo-grande { font-size: 3rem; margin-bottom: 1rem; }
 .paleta-colores {
