@@ -113,6 +113,7 @@ def buscar_invitado(slug: str, datos: BuscarInvitado):
     return dict(fila)
 
 
+
 @app.patch("/eventos/{slug}/invitados/{invitado_id}")
 def actualizar_estado(slug: str, invitado_id: int, datos: ActualizarEstado):
     tabla = get_tabla_o_404(slug)
@@ -124,7 +125,20 @@ def actualizar_estado(slug: str, invitado_id: int, datos: ActualizarEstado):
             raise HTTPException(status_code=404, detail="Invitado no encontrado")
     return {"mensaje": "Estado actualizado"}
 
+@app.delete("/admin/eventos/{slug}/invitados/{invitado_id}", dependencies=[Depends(verificar_admin)])
+def eliminar_invitado(slug: str, invitado_id: int):
+    tabla = get_tabla_o_404(slug)
+    
+    with engine.begin() as conn:
+        resultado = conn.execute(
+            delete(tabla).where(tabla.c.id == invitado_id)
+        )
+        if resultado.rowcount == 0:
+            raise HTTPException(status_code=404, detail="Invitado no encontrado")
+            
+    return {"mensaje": f"Invitado {invitado_id} eliminado exitosamente del evento {slug}"}
 
 @app.get("/")
 def raiz():
     return {"estado": "ok", "servicio": "Invitaciones API"}
+
