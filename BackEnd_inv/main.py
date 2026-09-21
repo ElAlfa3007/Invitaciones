@@ -1,7 +1,7 @@
 import os
 from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
-from sqlalchemy import select, insert, update
+from sqlalchemy import select, insert, update, delete
 from sqlalchemy.exc import IntegrityError  # Añadido para capturar duplicados
 
 from database import engine
