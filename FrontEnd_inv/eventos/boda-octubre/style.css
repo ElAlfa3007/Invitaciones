@@ -294,6 +294,19 @@ h3 {
 .hora { font-family: 'Playfair Display', serif; color: var(--burdeos); font-weight: 600; }
 .lugar { font-size: 0.8rem; color: var(--texto-secundario); }
 
+/* ---------- Ubicación ---------- */
+.icono-ubicacion {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.enlace-mapa {
+  display: inline-block;
+  text-decoration: none;
+  margin-top: 1rem;
+  max-width: 300px;
+}
+
 /* ---------- Código de Vestimenta ---------- */
 .titulo-grande { font-size: 3rem; margin-bottom: 1rem; }
 .paleta-colores {
