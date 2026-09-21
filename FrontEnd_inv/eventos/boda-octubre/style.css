@@ -295,6 +295,14 @@ h3 {
 .lugar { font-size: 0.8rem; color: var(--texto-secundario); }
 
 /* ---------- Ubicación ---------- */
+.mapa-contenedor {
+  margin: 2rem auto;
+  max-width: 300px;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
 .icono-ubicacion {
   font-size: 2rem;
   margin-bottom: 1rem;
