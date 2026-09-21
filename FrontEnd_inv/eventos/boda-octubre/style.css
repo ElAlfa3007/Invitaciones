@@ -188,6 +188,61 @@ h3 {
   margin-top: 5px;
 }
 
+/* ---------- Calendario ---------- */
+.calendario-boda {
+  background-color: var(--crema-caja);
+  border-radius: 20px;
+  padding: 2rem;
+  margin: 1.5rem auto 3.5rem auto;
+  max-width: 320px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.mes-calendario {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 2.2rem;
+  color: var(--verde-oscuro);
+  margin-bottom: 1.5rem;
+  font-weight: 400;
+}
+
+.dias-semana {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 1rem;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  color: var(--texto-secundario);
+}
+
+.dias-numeros {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 12px 0;
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  color: var(--texto-principal);
+}
+
+.dias-numeros span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+}
+
+.dia-marcado {
+  background-color: var(--verde-claro);
+  color: white;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  margin: 0 auto;
+  font-weight: bold;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+}
+
 /* ---------- Itinerario (Línea de tiempo) ---------- */
 .subtitulo-fecha {
   font-size: 0.75rem;
