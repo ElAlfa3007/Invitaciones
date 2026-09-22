@@ -393,6 +393,26 @@ h3 {
   cursor: pointer;
 }
 .boton-estado.activo { background-color: var(--verde-claro); color: white; border-color: var(--verde-claro); }
+/* ---------- Botón Finalizar / Recargar ---------- */
+#boton-recargar {
+  margin-top: 1.5rem;
+  padding: 0.8rem;
+  width: 100%;
+  background-color: transparent;
+  color: var(--verde-oscuro); /* Asegúrate de que esta variable exista, o usa #4a5d4e */
+  border: 1px solid var(--verde-oscuro);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#boton-recargar:hover {
+  background-color: var(--verde-oscuro);
+  color: white;
+}
 
 .mensaje { margin-top: 15px; padding: 10px; font-size: 0.85rem; border-radius: 5px; }
 .mensaje.error { color: #842029; background-color: #f8d7da; border: 1px solid #f5c2c7; }

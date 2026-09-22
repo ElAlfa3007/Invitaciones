@@ -47,10 +47,12 @@
   const mensajeBusqueda = document.getElementById("mensaje-busqueda");
   const nombreResultado = document.getElementById("nombre-resultado");
   const mensajeConfirmacion = document.getElementById("mensaje-confirmacion");
+  
+  // Capturamos el nuevo botón de recargar
+  const botonRecargar = document.getElementById("boton-recargar");
 
-  let invitadoActual = null; // { id, nombre, apellido, estado }
+  let invitadoActual = null;
 
-  // Función para capitalizar nombres (disponible para búsqueda y confirmación)
   const formatearNombre = (str) => str.replace(/\b\w/g, c => c.toUpperCase());
 
   function mostrarMensaje(el, texto, tipo) {
@@ -83,7 +85,7 @@
 
       const textoOriginalBoton = botonSubmit.textContent;
       botonSubmit.disabled = true;
-      botonSubmit.textContent = "Buscando... (puede tardar un momento)";
+      botonSubmit.textContent = "Buscando...";
 
       const baseUrl = cfg.apiBase.replace(/\/$/, "");
 
@@ -98,7 +100,7 @@
           const err = await resp.json().catch(() => ({}));
           mostrarMensaje(
             mensajeBusqueda,
-            err.detail || "No encontramos tu invitación. Verifica los datos.",
+            err.detail || "No encontramos tu invitación.",
             "error"
           );
           return;
@@ -112,7 +114,7 @@
         panelBusqueda.classList.add("oculto");
         panelConfirmacion.classList.remove("oculto");
       } catch (e) {
-        mostrarMensaje(mensajeBusqueda, "No pudimos conectar con el servidor. Revisa tu conexión e intenta de nuevo.", "error");
+        mostrarMensaje(mensajeBusqueda, "Error de conexión. Intenta de nuevo.", "error");
       } finally {
         botonSubmit.disabled = false;
         botonSubmit.textContent = textoOriginalBoton;
@@ -140,28 +142,40 @@
         );
 
         if (!resp.ok) {
-          mostrarMensaje(mensajeConfirmacion, "No se pudo guardar tu respuesta. Intenta de nuevo.", "error");
+          mostrarMensaje(mensajeConfirmacion, "Error al guardar. Intenta de nuevo.", "error");
           return;
         }
 
         marcarBotonActivo(estado);
 
-        // Identificar si tiene pases múltiples configurados en este evento
         const nombreCompleto = `${formatearNombre(invitadoActual.nombre)} ${formatearNombre(invitadoActual.apellido)}`;
         const pases = (cfg.pasesEspeciales && cfg.pasesEspeciales[nombreCompleto]) ? cfg.pasesEspeciales[nombreCompleto] : 1;
 
         const textos = {
-          asiste: pases > 1 ? `¡Genial! Los esperamos con ${pases} pases 🎉` : "¡Genial! Te esperamos 🎉",
+          asiste: pases > 1 ? `¡Genial! Los esperamos con ${pases} pases` : "¡Genial! Te esperamos",
           no_asiste: "Gracias por avisar, los extrañaremos.",
-          pendiente: "Quedaste como pendiente, puedes confirmar cuando quieras.",
+          pendiente: "Quedaste como pendiente.",
         };
         
         mostrarMensaje(mensajeConfirmacion, textos[estado] || "Respuesta guardada.", "exito");
+        
+        // Mostrar el botón de finalizar tras guardar con éxito
+        if (botonRecargar) {
+          botonRecargar.classList.remove("oculto");
+        }
+
       } catch (e) {
-        mostrarMensaje(mensajeConfirmacion, "No pudimos conectar con el servidor. Intenta de nuevo.", "error");
+        mostrarMensaje(mensajeConfirmacion, "Error de conexión.", "error");
       } finally {
         document.querySelectorAll(".boton-estado").forEach(b => b.disabled = false);
       }
     });
   });
+
+  // Evento para limpiar la pantalla y volver al inicio
+  if (botonRecargar) {
+    botonRecargar.addEventListener("click", () => {
+      window.location.reload();
+    });
+  }
 })();
