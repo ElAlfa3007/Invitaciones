@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Control | Luis & Verónica</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    .admin-container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background-color: var(--crema-fondo);
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      font-family: 'Montserrat', sans-serif;
+    }
+    .resumen-cards {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+    .card {
+      flex: 1;
+      min-width: 150px;
+      padding: 1.5rem;
+      text-align: center;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 1.1rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    }
+    .card.asiste { background: #d4edda; color: #155724; }
+    .card.no_asiste { background: #f8d7da; color: #721c24; }
+    .card.pendiente { background: #fff3cd; color: #856404; }
+    .numero-grande {
+      display: block;
+      font-size: 2.5rem;
+      margin-top: 0.5rem;
+      font-family: 'Playfair Display', serif;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #ddd; }
+    th { background-color: var(--verde-oscuro); color: white; }
+    .badge {
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+    .bg-asiste { background: #d4edda; color: #155724; }
+    .bg-no_asiste { background: #f8d7da; color: #721c24; }
+    .bg-pendiente { background: #fff3cd; color: #856404; }
+  </style>
+</head>
+<body>
+
+  <div class="admin-container">
+    <h1 class="texto-cursiva titulo-seccion" style="text-align: center;">Panel de Invitados</h1>
+    
+    <!-- Sección de Login -->
+    <div id="login-section" style="text-align: center; margin: 3rem 0;">
+      <p style="margin-bottom: 1rem;">Ingresa la contraseña para ver la lista:</p>
+      <input type="password" id="admin-pass" placeholder="Contraseña..." class="input-form" style="max-width: 300px; margin: 0 auto 1rem auto; display: block;">
+      <button id="btn-cargar" class="boton-elegante" style="max-width: 300px;">Ver Lista</button>
+      <p id="admin-msg" style="color: red; margin-top: 15px; font-weight: bold;"></p>
+    </div>
+
+    <!-- Panel de Datos (Oculto hasta poner la clave) -->
+    <div id="dashboard" class="oculto">
+      <div class="resumen-cards">
+        <div class="card asiste">Confirmados <span class="numero-grande" id="total-asiste">0</span></div>
+        <div class="card pendiente">Pendientes <span class="numero-grande" id="total-pendiente">0</span></div>
+        <div class="card no_asiste">No Asistirán <span class="numero-grande" id="total-no-asiste">0</span></div>
+      </div>
+
+      <div style="overflow-x: auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>Invitado</th>
+              <th>Pases Asignados</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody id="tabla-invitados"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="config.js"></script>
+  <script>
+    document.getElementById('btn-cargar').addEventListener('click', async () => {
+       const pass = document.getElementById('admin-pass').value;
+       const msg = document.getElementById('admin-msg');
+       const dashboard = document.getElementById('dashboard');
+       const baseUrl = window.CONFIG.apiBase.replace(/\/$/, "");
+       
+       msg.textContent = "Cargando datos...";
+       
+       try {
+         const res = await fetch(`${baseUrl}/admin/eventos/${window.CONFIG.slug}/invitados`, {
+           headers: { "X-Admin-Key": pass }
+         });
+         
+         if(!res.ok) throw new Error("Contraseña incorrecta.");
+         
+         const data = await res.json();
+         
+         let asiste = 0, no_asiste = 0, pendiente = 0;
+         const tbody = document.getElementById('tabla-invitados');
+         tbody.innerHTML = "";
+         
+         const formatearNombre = (str) => str.replace(/\b\w/g, c => c.toUpperCase());
+
+         data.invitados.forEach(inv => {
+           const nombreCompleto = `${formatearNombre(inv.nombre)} ${formatearNombre(inv.apellido)}`;
+           // Aquí la magia: cruza la BD con config.js para saber los pases reales
+           const pases = (window.CONFIG.pasesEspeciales && window.CONFIG.pasesEspeciales[nombreCompleto]) ? window.CONFIG.pasesEspeciales[nombreCompleto] : 1;
+           
+           if(inv.estado === 'asiste') asiste += pases;
+           if(inv.estado === 'no_asiste') no_asiste += pases;
+           if(inv.estado === 'pendiente') pendiente += pases;
+           
+           const tr = document.createElement('tr');
+           let textoEstado = inv.estado === 'no_asiste' ? 'NO ASISTE' : inv.estado;
+           
+           tr.innerHTML = `
+             <td style="font-weight: bold;">${nombreCompleto}</td>
+             <td style="text-align: center;">${pases}</td>
+             <td><span class="badge bg-${inv.estado}">${textoEstado}</span></td>
+           `;
+           tbody.appendChild(tr);
+         });
+         
+         // Actualizar tarjetas resumen
+         document.getElementById('total-asiste').textContent = asiste;
+         document.getElementById('total-no-asiste').textContent = no_asiste;
+         document.getElementById('total-pendiente').textContent = pendiente;
+         
+         // Mostrar pantalla
+         dashboard.classList.remove('oculto');
+         document.getElementById('login-section').style.display = 'none';
+         
+       } catch(e) {
+         msg.textContent = e.message;
+       }
+    });
+  </script>
+</body>
+</html>
