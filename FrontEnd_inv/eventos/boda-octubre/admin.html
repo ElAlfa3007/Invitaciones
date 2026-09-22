@@ -100,20 +100,30 @@
 
   <script src="config.js"></script>
   <script>
+    // Configuración de contraseñas
+    const CLAVE_NOVIOS = "LuisYVero2026"; // Contraseña que los novios escribirán en la pantalla
+
     document.getElementById('btn-cargar').addEventListener('click', async () => {
        const pass = document.getElementById('admin-pass').value;
        const msg = document.getElementById('admin-msg');
        const dashboard = document.getElementById('dashboard');
        const baseUrl = window.CONFIG.apiBase.replace(/\/$/, "");
        
+       // 1. Validar la clave de los novios localmente
+       if (pass !== CLAVE_NOVIOS) {
+         msg.textContent = "Contraseña incorrecta.";
+         return;
+       }
+
        msg.textContent = "Cargando datos...";
        
        try {
+         // 2. Hacer la petición a Render usando tu clave maestra en los headers
          const res = await fetch(`${baseUrl}/admin/eventos/${window.CONFIG.slug}/invitados`, {
-           headers: { "X-Admin-Key": pass }
+           headers: { "X-Admin-Key": CLAVE_API_RENDER }
          });
          
-         if(!res.ok) throw new Error("Contraseña incorrecta.");
+         if(!res.ok) throw new Error("Error al obtener los datos de la base de datos.");
          
          const data = await res.json();
          
@@ -125,7 +135,8 @@
 
          data.invitados.forEach(inv => {
            const nombreCompleto = `${formatearNombre(inv.nombre)} ${formatearNombre(inv.apellido)}`;
-           // Aquí la magia: cruza la BD con config.js para saber los pases reales
+           
+           // Cruza la BD con config.js para saber los pases reales
            const pases = (window.CONFIG.pasesEspeciales && window.CONFIG.pasesEspeciales[nombreCompleto]) ? window.CONFIG.pasesEspeciales[nombreCompleto] : 1;
            
            if(inv.estado === 'asiste') asiste += pases;
@@ -148,7 +159,7 @@
          document.getElementById('total-no-asiste').textContent = no_asiste;
          document.getElementById('total-pendiente').textContent = pendiente;
          
-         // Mostrar pantalla
+         // Mostrar pantalla y ocultar login
          dashboard.classList.remove('oculto');
          document.getElementById('login-section').style.display = 'none';
          
