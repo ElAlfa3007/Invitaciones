@@ -50,6 +50,9 @@
 
   let invitadoActual = null; // { id, nombre, apellido, estado }
 
+  // Función para capitalizar nombres (disponible para búsqueda y confirmación)
+  const formatearNombre = (str) => str.replace(/\b\w/g, c => c.toUpperCase());
+
   function mostrarMensaje(el, texto, tipo) {
     el.textContent = texto;
     el.className = "mensaje " + tipo;
@@ -71,19 +74,17 @@
       const inputApellido = document.getElementById("input-apellido");
       const nombre = inputNombre.value.trim();
       const apellido = inputApellido.value.trim();
-      const botonSubmit = formBusqueda.querySelector('button[type="submit"]'); // Asegura capturar el botón
+      const botonSubmit = formBusqueda.querySelector('button[type="submit"]');
 
       if (!nombre || !apellido) {
         mostrarMensaje(mensajeBusqueda, "Escribe tu nombre y apellido.", "error");
         return;
       }
 
-      // Estado de carga para el Cold Start de Render
       const textoOriginalBoton = botonSubmit.textContent;
       botonSubmit.disabled = true;
       botonSubmit.textContent = "Buscando... (puede tardar un momento)";
 
-      // Limpieza de apiBase por si accidentalmente dejan una barra al final en config.js
       const baseUrl = cfg.apiBase.replace(/\/$/, "");
 
       try {
@@ -105,9 +106,6 @@
 
         invitadoActual = await resp.json();
         
-        // Capitalizar la primera letra de cada palabra (ya que la BD devuelve minúsculas)
-        const formatearNombre = (str) => str.replace(/\b\w/g, c => c.toUpperCase());
-        
         nombreResultado.textContent = `${formatearNombre(invitadoActual.nombre)} ${formatearNombre(invitadoActual.apellido)}`;
         marcarBotonActivo(invitadoActual.estado);
 
@@ -116,7 +114,6 @@
       } catch (e) {
         mostrarMensaje(mensajeBusqueda, "No pudimos conectar con el servidor. Revisa tu conexión e intenta de nuevo.", "error");
       } finally {
-        // Restaurar botón siempre, haya error o éxito
         botonSubmit.disabled = false;
         botonSubmit.textContent = textoOriginalBoton;
       }
@@ -128,7 +125,6 @@
       if (!invitadoActual || boton.disabled) return;
       const estado = boton.dataset.estado;
       
-      // Bloquear botones durante la petición
       document.querySelectorAll(".boton-estado").forEach(b => b.disabled = true);
 
       const baseUrl = cfg.apiBase.replace(/\/$/, "");
@@ -149,16 +145,21 @@
         }
 
         marcarBotonActivo(estado);
+
+        // Identificar si tiene pases múltiples configurados en este evento
+        const nombreCompleto = `${formatearNombre(invitadoActual.nombre)} ${formatearNombre(invitadoActual.apellido)}`;
+        const pases = (cfg.pasesEspeciales && cfg.pasesEspeciales[nombreCompleto]) ? cfg.pasesEspeciales[nombreCompleto] : 1;
+
         const textos = {
-          asiste: "¡Genial! Te esperamos 🎉",
-          no_asiste: "Gracias por avisar, te extrañaremos.",
+          asiste: pases > 1 ? `¡Genial! Los esperamos con ${pases} pases 🎉` : "¡Genial! Te esperamos 🎉",
+          no_asiste: "Gracias por avisar, los extrañaremos.",
           pendiente: "Quedaste como pendiente, puedes confirmar cuando quieras.",
         };
+        
         mostrarMensaje(mensajeConfirmacion, textos[estado] || "Respuesta guardada.", "exito");
       } catch (e) {
         mostrarMensaje(mensajeConfirmacion, "No pudimos conectar con el servidor. Intenta de nuevo.", "error");
       } finally {
-        // Desbloquear botones
         document.querySelectorAll(".boton-estado").forEach(b => b.disabled = false);
       }
     });
