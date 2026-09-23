@@ -22,7 +22,7 @@ window.CONFIG = {
     "Litzy Loor": 2,
     "Alexander Montenegro": 2,
     "Luis Arteaga": 2,
-    "Fabricio Chalán": 2,
+    "Fabricio Chalan": 2,
     "Jonathan Muñoz": 2,
     "Maria Pogo": 2,
     "Grace Catagua": 2,
