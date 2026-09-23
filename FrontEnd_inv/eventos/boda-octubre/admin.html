@@ -67,7 +67,6 @@
   <div class="admin-container">
     <h1 class="texto-cursiva titulo-seccion" style="text-align: center;">Panel de Invitados</h1>
     
-    <!-- Sección de Login -->
     <div id="login-section" style="text-align: center; margin: 3rem 0;">
       <p style="margin-bottom: 1rem;">Ingresa la contraseña para ver la lista:</p>
       <input type="password" id="admin-pass" placeholder="Contraseña..." class="input-form" style="max-width: 300px; margin: 0 auto 1rem auto; display: block;">
@@ -75,7 +74,6 @@
       <p id="admin-msg" style="color: red; margin-top: 15px; font-weight: bold;"></p>
     </div>
 
-    <!-- Panel de Datos (Oculto hasta poner la clave) -->
     <div id="dashboard" class="oculto">
       <div class="resumen-cards">
         <div class="card asiste">Confirmados <span class="numero-grande" id="total-asiste">0</span></div>
@@ -100,9 +98,8 @@
 
   <script src="config.js"></script>
   <script>
-    // Configuración de contraseñas
-    const CLAVE_NOVIOS = "LuisYVero2026"; // Contraseña que los novios escribirán en la pantalla
-    const CLAVE_API_RENDER = "ProjectInv2026"; // Tu clave maestra (se envía oculta a la API)
+    const CLAVE_NOVIOS = "LuisYVero2026"; 
+    const CLAVE_API_RENDER = "ProjectInv2026"; 
 
     document.getElementById('btn-cargar').addEventListener('click', async () => {
        const pass = document.getElementById('admin-pass').value;
@@ -110,7 +107,6 @@
        const dashboard = document.getElementById('dashboard');
        const baseUrl = window.CONFIG.apiBase.replace(/\/$/, "");
        
-       // 1. Validar la clave de los novios localmente
        if (pass !== CLAVE_NOVIOS) {
          msg.textContent = "Contraseña incorrecta.";
          return;
@@ -119,7 +115,6 @@
        msg.textContent = "Cargando datos...";
        
        try {
-         // 2. Hacer la petición a Render usando tu clave maestra en los headers
          const res = await fetch(`${baseUrl}/admin/eventos/${window.CONFIG.slug}/invitados`, {
            headers: { "X-Admin-Key": CLAVE_API_RENDER }
          });
@@ -132,12 +127,16 @@
          const tbody = document.getElementById('tabla-invitados');
          tbody.innerHTML = "";
          
-         const formatearNombre = (str) => str.replace(/\b\w/g, c => c.toUpperCase());
+         // NUEVA FUNCIÓN: A prueba de tildes y eñes
+         const formatearNombre = (str) => {
+           if (!str) return "";
+           return str.trim().toLowerCase().split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+         };
 
          data.invitados.forEach(inv => {
            const nombreCompleto = `${formatearNombre(inv.nombre)} ${formatearNombre(inv.apellido)}`;
            
-           // Cruza la BD con config.js para saber los pases reales
+           // Cruza con config.js
            const pases = (window.CONFIG.pasesEspeciales && window.CONFIG.pasesEspeciales[nombreCompleto]) ? window.CONFIG.pasesEspeciales[nombreCompleto] : 1;
            
            if(inv.estado === 'asiste') asiste += pases;
@@ -155,12 +154,10 @@
            tbody.appendChild(tr);
          });
          
-         // Actualizar tarjetas resumen
          document.getElementById('total-asiste').textContent = asiste;
          document.getElementById('total-no-asiste').textContent = no_asiste;
          document.getElementById('total-pendiente').textContent = pendiente;
          
-         // Mostrar pantalla y ocultar login
          dashboard.classList.remove('oculto');
          document.getElementById('login-section').style.display = 'none';
          
